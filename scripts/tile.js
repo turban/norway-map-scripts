@@ -17,13 +17,32 @@ function run (command, callback){
 	});
 }
 
+// Add CRS to geojson file
+function addCrs (file, callback){
+	fs.readJson(file, function(err, geojson) {
+		if (err) throw err;
+
+		geojson.crs = {
+			type: 'name',
+			properties: {
+				name: 'urn:ogc:def:crs:EPSG::32633'
+			}
+		};
+
+		fs.writeJson(file, geojson, function(err){
+			if (err) throw err;
+			callback();
+		});
+	});
+}
+
 function createTile (x, y, callback) {
 	var west = bounds[0] + (x * tileSize),
 		north = bounds[3] - (y * tileSize),
 		east = west + tileSize,
 		south = north - tileSize,	
 		tileBounds = [west, south, east, north],
-		folder =  x + '/' + y + '/';
+		folder = '../grid/' + x + '/' + y + '/';
 
 	console.log("tile", tileBounds);
 
@@ -68,6 +87,30 @@ function createTile (x, y, callback) {
 			//createMap(relief, hillshade = true, slopeshade, slope);
 		});
 		*/
+
+		// Create slope
+		run('gdaldem slope ' + folder + 'dem.tif ' + folder + 'slope.tif', function (){ 
+
+			// Mark steep slope
+			run('gdaldem color-relief -co compress=lzw ' + folder + 'slope.tif ../styles/slope-steep.txt ' + folder + 'slope-steep.tif', function (){
+
+				// Convert to pnm format supported by Potrace
+				run('gdal_translate -of PNM -ot Byte ' + folder + 'slope-steep.tif ' + folder + 'slope-steep.pnm', function (){
+
+					// Vectorize steep terrain
+					run('potrace -t 1 -b geojson ' + folder + 'slope-steep.pnm -o ' + folder + 'slope-steep.geojson -x ' + resolution + '  -L ' + west + ' -B ' + south, function(){
+						addCrs(folder + 'slope-steep.geojson', function(){
+							//createMap(relief, hillshade, slopeshade, slope = true);
+						});
+					});
+
+
+				});
+
+
+			});
+
+		});
 
 	});
 
