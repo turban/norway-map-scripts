@@ -1,0 +1,15 @@
+{
+  "name": "snowmap",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/turban/norway-map-scripts.git"
+  },
+  "dependencies": {
+    "fs-extra": "^0.12.0",
+    "mapnik": "^3.0.5",
+    "png": "^3.0.3",
+    "pngparse": "^2.0.1",
+    "request": "^2.46.0"
+  }
+}
