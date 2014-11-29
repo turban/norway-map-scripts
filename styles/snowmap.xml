@@ -1,0 +1,126 @@
+<Map srs="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs">
+
+	<Style name="relief style">
+		<Rule>
+			<RasterSymbolizer mode="normal" scaling="bilinear" />
+		</Rule>
+	</Style>  
+	<Style name="hillshade style">
+		<Rule>
+			<RasterSymbolizer opacity="0.5" mode="multiply" scaling="bilinear" />
+		</Rule>
+	</Style>
+	<Style name="slopeshade style">
+		<Rule>
+			<RasterSymbolizer opacity="0.1" mode="multiply" scaling="bilinear" />
+		</Rule>
+	</Style>	
+
+	<Style name="glacier style">
+		<Rule>
+			<PolygonSymbolizer fill="rgb(248,252,255)" />
+		</Rule>
+	</Style> 
+	<Style name="snow style">
+		<Rule>
+			<PolygonSymbolizer fill="rgb(255,255,255)" />
+		</Rule>
+	</Style>   
+	<Style name="lake style">
+		<Rule>
+			<PolygonSymbolizer fill="rgb(180,210,230)" />
+		</Rule>
+	</Style>
+
+	<Style name="lake snow style">
+		<Rule>
+			<PolygonSymbolizer fill="rgba(180,210,230,0.2)" />
+		</Rule>
+	</Style>
+
+	<Style name="rock style">
+		<Rule>
+			<PolygonSymbolizer fill="rgba(33,33,33,0.4)" />
+		</Rule>
+	</Style>  
+
+	<Style name="building style">
+		<Rule>
+			<PointSymbolizer/> 
+
+		</Rule>
+	</Style>  
+
+	<Style name="road style">
+		<Rule>
+      		<LineSymbolizer stroke="#333333" stroke-width="3" />
+		</Rule>
+	</Style>  
+
+	<Layer name="relief">
+		<StyleName>relief style</StyleName>
+		<Datasource>
+			<Parameter name="type">gdal</Parameter>
+			<Parameter name="file">/Volumes/Seagate/Data/Norway/grid/4/22/color-relief.tif</Parameter>
+		</Datasource>
+	</Layer>  
+
+	<Layer name="lake" srs="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs">
+		<StyleName>lake style</StyleName>
+		<Datasource>
+			<Parameter name="type">shape</Parameter>
+			<Parameter name="file">/Volumes/Seagate/Data/Norway/N250/NO_N250_Arealdekke_Innsj%F8_FLATE.shp</Parameter>
+		</Datasource>
+	</Layer> 
+
+	<Layer name="snow" srs="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs">
+		<StyleName>snow style</StyleName>
+		<Datasource>
+			<Parameter name="type">geojson</Parameter>
+			<Parameter name="file">/Volumes/Seagate/Data/Norway/snow/2014-11-23.geojson</Parameter>
+		</Datasource>
+	</Layer> 
+
+	<Layer name="rock" srs="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs">
+		<StyleName>rock style</StyleName>
+		<Datasource>
+			<Parameter name="type">geojson</Parameter>
+			<Parameter name="file">/Volumes/Seagate/Data/Norway/grid/4/22/slope-steep.geojson</Parameter>
+		</Datasource>
+	</Layer> 
+
+	<Layer name="glacier" srs="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs">
+		<StyleName>glacier style</StyleName>
+		<Datasource>
+			<Parameter name="type">shape</Parameter>
+			<Parameter name="file">/Volumes/Seagate/Data/Norway/N250/NO_N250_Arealdekke_Sn%F8Isbre_FLATE.shp</Parameter>
+		</Datasource>
+	</Layer> 
+
+	<Layer name="road" srs="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs">
+		<StyleName>road style</StyleName>
+		<Datasource>
+			<Parameter name="type">shape</Parameter>
+			<Parameter name="file">/Volumes/Seagate/Data/Norway/N500/Samferdsel_VegSenterlinje_KURVE.shp</Parameter>
+		</Datasource>
+	</Layer> 
+
+	<Layer name="hillshade">
+		<StyleName>hillshade style</StyleName>
+		<Datasource>
+			<Parameter name="type">gdal</Parameter>
+			<Parameter name="file">/Volumes/Seagate/Data/Norway/grid/4/22/hillshade-snow.tif</Parameter>
+		</Datasource>
+	</Layer>  
+
+
+
+	<Layer name="building" srs="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs">
+		<StyleName>building style</StyleName>
+		<Datasource>
+			<Parameter name="type">shape</Parameter>
+			<Parameter name="file">/Volumes/Seagate/Data/Norway/N250/NO_N250_BygningerOgAnlegg_Bygning_PUNKT.shp</Parameter>
+		</Datasource>
+	</Layer> 
+
+</Map>

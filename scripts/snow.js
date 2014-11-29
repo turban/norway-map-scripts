@@ -4,7 +4,7 @@ var fs = require('fs-extra'), // https://www.npmjs.org/package/fs-extra
 	Png = require('png').Png,
 	exec = require('child_process').exec;
 
-var date = '2014-11-23',
+var date = '2014-11-28',
 	bounds = [-80000, 6445000, 1120000, 7945000],
 	resolution = 1000, 
 	width = (bounds[2] - bounds[0]) / resolution, 
